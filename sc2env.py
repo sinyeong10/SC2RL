@@ -13,9 +13,9 @@ class Sc2Env(gym.Env):
 		# Define action and observation space
 		# They must be gym.spaces objects
 		# Example when using discrete actions:
-		self.action_space = spaces.Discrete(6)
+		self.action_space = spaces.Discrete(5)
 		self.observation_space = spaces.Box(low=0, high=255,
-											shape=(224, 224, 3), dtype=np.uint8)
+											shape=(88, 96, 3), dtype=np.uint8) #224,224,3
 
 	def step(self, action):
 		wait_for_action = True
@@ -27,7 +27,7 @@ class Sc2Env(gym.Env):
 					state_rwd_action = pickle.load(f)
 
 					if state_rwd_action['action'] is not None:
-						#print("No action yet")
+						# print("No action yet")
 						wait_for_action = True
 					else:
 						#print("Needs action")
@@ -59,7 +59,7 @@ class Sc2Env(gym.Env):
 
 			except Exception as e:
 				wait_for_state = True   
-				map = np.zeros((224, 224, 3), dtype=np.uint8)
+				map = np.zeros((88, 96, 3), dtype=np.uint8) #224,224,3
 				observation = map
 				# if still failing, input an ACTION, 3 (scout)
 				data = {"state": map, "reward": 0, "action": 3, "done": False}  # empty action waiting for the next one!
@@ -78,7 +78,7 @@ class Sc2Env(gym.Env):
 
 	def reset(self):
 		print("RESETTING ENVIRONMENT!!!!!!!!!!!!!")
-		map = np.zeros((224, 224, 3), dtype=np.uint8)
+		map = np.zeros((88, 96, 3), dtype=np.uint8) #224,224,3
 		observation = map
 		data = {"state": map, "reward": 0, "action": None, "done": False}  # empty action waiting for the next one!
 		with open('state_rwd_action.pkl', 'wb') as f:

@@ -30,10 +30,11 @@ class IncrediBot(BotAI): # inhereits from BotAI (part of BurnySC2)
                     state_rwd_action = pickle.load(f)
 
                     if state_rwd_action['action'] is None:
-                        #print("No action yet")
+                        print("No action yet")
+                        # time.sleep(0.01)
                         no_action = True
                     else:
-                        #print("Action found")
+                        print("Action found", state_rwd_action['action'])
                         no_action = False
             except:
                 pass
@@ -186,10 +187,10 @@ class IncrediBot(BotAI): # inhereits from BotAI (part of BurnySC2)
             
 
         #5: voidray flee (back to base)
-        elif action == 5:
-            if self.units(UnitTypeId.VOIDRAY).amount > 0:
-                for vr in self.units(UnitTypeId.VOIDRAY):
-                    vr.attack(self.start_location)
+        # elif action == 5:
+        #     if self.units(UnitTypeId.VOIDRAY).amount > 0:
+        #         for vr in self.units(UnitTypeId.VOIDRAY):
+        #             vr.attack(self.start_location)
 
 
         map = np.zeros((self.game_info.map_size[0], self.game_info.map_size[1], 3), dtype=np.uint8)
@@ -321,10 +322,9 @@ class IncrediBot(BotAI): # inhereits from BotAI (part of BurnySC2)
             pickle.dump(data, f)
 
         
-
-
+#Simple64
 result = run_game(  # run_game is a function that runs the game.
-    maps.get("2000AtmospheresAIE"), # the map we are playing on
+    maps.get("Simple64"), # the map we are playing on
     [Bot(Race.Protoss, IncrediBot()), # runs our coded bot, protoss race, and we pass our bot object 
      Computer(Race.Zerg, Difficulty.Hard)], # runs a pre-made computer agent, zerg race, with a hard difficulty.
     realtime=False, # When set to True, the agent is limited in how long each step can take to process.
@@ -339,8 +339,8 @@ else:
 with open("results.txt","a") as f:
     f.write(f"{result}\n")
 
-
-map = np.zeros((224, 224, 3), dtype=np.uint8)
+#224,224,3
+map = np.zeros((88, 96, 3), dtype=np.uint8)
 observation = map
 data = {"state": map, "reward": rwd, "action": None, "done": True}  # empty action waiting for the next one!
 with open('state_rwd_action.pkl', 'wb') as f:

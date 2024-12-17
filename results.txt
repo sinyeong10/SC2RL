@@ -1,0 +1,7 @@
+Result.Defeat
+Result.Defeat
+Result.Defeat
+Result.Victory
+Result.Victory
+Result.Defeat
+Result.Victory
